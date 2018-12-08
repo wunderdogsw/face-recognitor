@@ -1,13 +1,22 @@
 sudo: required
 language: node_js
 node_js:
-  - "8"
+- '8'
 env:
   global:
   - COMMIT=${TRAVIS_COMMIT::6}
   - DOCKER_REPO=766261213300.dkr.ecr.eu-west-1.amazonaws.com/face-recognitor
+  - secure: GV08M+JDIB2MMwRvq1bsWkKkrcJZmwvfoUIltufHThaj+2oM5khnsfyUZNT+gKUJOkXw4IC88vwhjBbXHJD5E5hw9QUVvFmo5CNKm8IuLz7CkhRWuMS1keYrFzrXgyocR+7GbHb8jbY6rU8hWK5j4ZYaGiigNpowiJvfDTAAcD4lBZ+EvP8TNiRtkWy+vZ9HEF2e6G454E+QIaA9MGo6+A51jcE/hQgUyRu0rzcXeQWlw/mPmtjTFy2nlS6hNEEcjxuLXIg4HZz+thTJWJy2TGxQ7POyFO5ONP9cvyqWva8HF6al5le/X74PYbCXiA9VEkBISvrV+r7Gsz7xuSw7+xujS8NUEQg4zvjDEhBdR7f4DIa1LoA58NAhSrDD3Xx+mRzT3UQnBKZgWriu/PJvNXII76roy+TBGH/vtL7xcTaqaAukck2shjcn0j14lA4+wgaPm6Jwzr/MzWkOKO5KjBbfxk2yI3rfKBxkQ/Rb712Pt5HGPx+mjUc8l9PQ8gbtMppypR3pnrcKfZXuCuSEdJ3WrN4+qO3VWoMoWMBeoKYl5ARaWOcQtYmVpK0Ca5MI5H5PAt3dC8FqrUJvfr81FQMXlZ+8Av7S8A51MyerLwi3VmyD2P3jB5SQXMLIYDH6dwbUfWI62SiJqhwgUS9zHJywupRRyZToZumvAxaP5wc=
+  - secure: pWAy4sl9QmouzQwd43TmXyvD7nMr9KjldnYtylqtuqEalOiOzmJ2iuwKYP3dznCB3lT5jv5XBXvRU6ldn4iyGE+p0lhFUgQDCz39XzQSIoSOU388ppWupE+l3fCAlRVSSpL+t0KujcjoII/8kOiTaf1PnEjeHmGQUy8AWHPGN75gXe5q7ePY7U9UReTFLQtkCVbHs31Mi1nYIYC5a7L2Rnym35XVnoq43Hn29515lMYIho0gB6F6hh4ie8C6sFJPOIyob2EgYAGzzpxmPFUhVAwtfptDVE/n+N0u5YHp11mWbH9TS/ln/VHumVTVDdM7TqmcvPocbjx020Gr6+pq7jd8KDEUZPr7aiygwrUwdPBXvYxZlgdZhzSV3ZeglkK/uBrtSw0QQ7QiwKWrFGh5okJQquV/nf7Ijh/magDOzf9IUG0aJfDzbtCRZ/NqIh42fIv8rmaL0wng2m/gPOn7dC5O5wG9kUh+0DNy92YoXXlaGMb491AY7XPbiDuylDYCtJMFDsfhkBzgmVbNC60NGAhvCW5XgGoIU5MXASSwMItlPZcC4GwRFJpFuaIveJhYvHtTjCVQJwMhfVqL88gUmMvzktaPZU+5C3cVywMh/vi5Jf33SdIO5K7LZJmDKXWXkAkhbZNAMXPFxSyP9hPHzwa87OV7GnXspDegdrFJvLY=
 services:
 - docker
 script:
 - npm run lint
 - docker build . -t $DOCKER_REPO:$COMMIT --network host
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: "./deploy.sh"
+  on:
+    repo: wunderdogsw/face-recognitor
+    branch: master
