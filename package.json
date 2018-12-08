@@ -5,7 +5,8 @@
   "main": "server/App.js",
   "scripts": {
     "start": "node server/App.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "./node_modules/.bin/eslint server/"
   },
   "repository": {
     "type": "git",
