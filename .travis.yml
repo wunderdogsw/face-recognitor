@@ -1,7 +1,5 @@
 sudo: required
-language: node_js
-node_js:
-- '8'
+language: generic
 env:
   global:
   - COMMIT=${TRAVIS_COMMIT::6}
@@ -11,7 +9,6 @@ env:
 services:
 - docker
 script:
-- npm run lint
 - docker build . -t $DOCKER_REPO:$COMMIT --network host
 deploy:
   provider: script
