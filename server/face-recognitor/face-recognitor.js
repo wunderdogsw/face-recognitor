@@ -5,9 +5,7 @@ const path = require('path');
 const fr = faceRecognition;
 const detector = fr.FaceDetector();
 
-const modelPath = process.env.NODE_ENV === 'production'
-  ? 'model.json'
-  : './server/face-recognitor/model.json';
+const modelPath = './server/face-recognitor/model.json';
 
 const model = JSON.parse(fs.readFileSync(modelPath));
 
